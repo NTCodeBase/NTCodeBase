@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ImportGroup Label="PropertySheets" />
+  <PropertyGroup Label="UserMacros">
+    <SCRATCH_BUILD_DIR>D:\Scratch\ProjectBuilds</SCRATCH_BUILD_DIR>
+  </PropertyGroup>
+  <PropertyGroup>
+    <IntDir>$(SCRATCH_BUILD_DIR)\$(SolutionName)\$(ProjectName)\$(Configuration)\</IntDir>
+    <IncludePath>$(SolutionDir)..\LibCommon;$(SolutionDir)..\LibGUI;$(SolutionDir)..\LibOpenGL;$(SolutionDir)..\LibParticle;$(SolutionDir)..\LibSimulation;$(SolutionDir)..\LibCommon\Externals\Catch2\single_include\catch2;$(SolutionDir)..\LibCommon\Externals\glm;$(SolutionDir)..\LibCommon\Externals\json\single_include\nlohmann;$(SolutionDir)..\LibCommon\Externals\spdlog\include;$(SolutionDir)..\LibCommon\Externals\tinyobjloader;$(SolutionDir)..\LibCommon\Externals\tbb_win\include;$(ProjectDir);$(IncludePath)</IncludePath>
+    <OutDir>$(SolutionDir)Build\$(Configuration)\</OutDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup>
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup>
+    <ClCompile>
+      <SDLCheck>true</SDLCheck>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup>
+    <ClCompile>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <PreprocessorDefinitions>_SILENCE_ALL_CXX17_DEPRECATION_WARNINGS;_WINDOWS;WIN32;WIN64;PARTIO_WIN32;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalOptions>/std:c++latest /bigobj</AdditionalOptions>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <PostBuildEvent>
+      <Command>if exist $(IntDir)$(TargetName).pdb xcopy /C /r /y $(IntDir)$(TargetName).pdb $(OutDir)</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <BuildMacro Include="SCRATCH_BUILD_DIR">
+      <Value>$(SCRATCH_BUILD_DIR)</Value>
+      <EnvironmentVariable>true</EnvironmentVariable>
+    </BuildMacro>
+  </ItemGroup>
+</Project>
